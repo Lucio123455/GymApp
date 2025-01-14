@@ -1,0 +1,201 @@
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+import app from "../firebase/config.js";
+const db = getFirestore(app);
+
+const user = 'Lucio';
+
+//const contenedorFormulario = document.querySelector('#contenedor-formulario');
+
+const rutina = {
+    Nombre: "",
+    CantidadDeDias: 0,
+    Dias: []
+}
+
+const dia = {
+    Nombre: '',
+    CantidadDeEjercicios: 0
+}
+
+const ejercicio = {
+    Nombre: '',
+    Series: []
+}
+
+let ejercicios = [];
+let dias = [];
+
+export async function BotonCrearRutina() {
+    const crearRutinaButton = document.querySelector('#crear-rutina');
+
+    crearRutinaButton.addEventListener('click', () => {
+        CrearRutina();
+    });
+}
+
+function CrearRutina() {
+    CrearFormularioRutina();
+    const rutinaForm = document.getElementById('form-rutina');
+
+    rutinaForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        SubmitFormRutina(); 
+    });
+}
+
+function SubmitFormRutina() {
+    const rutinaForm = document.getElementById('form-rutina');
+    rutinaForm.style.display = 'none'; 
+    
+    rutina["Nombre"] = document.getElementById('nombre-rutina').value;
+    rutina["CantidadDeDias"] = document.getElementById('cantidad-dias').value;
+
+    CrearFormDias(rutina.CantidadDeDias);
+}
+
+
+function CrearFormDias(cantidadDeDias) {
+    const contenedor = document.getElementById("contenedor-formulario");
+
+    // Formulario principal que contiene todos los días
+    const formularioPrincipalHTML = `
+      <form id="form-principal-dias" style="display: block;">
+        <h3>Completa los datos para cada día</h3>
+        <div id="subformularios-dias"></div> <!-- Contenedor para los días -->
+        <button type="submit">Confirmar Rutina</button>
+      </form>
+    `;
+
+    // Agregar el formulario principal al contenedor
+    contenedor.innerHTML = formularioPrincipalHTML;
+
+    const subformulariosContenedor = document.getElementById("subformularios-dias");
+
+    // Generar un subformulario para cada día
+    for (let i = 0; i < cantidadDeDias; i++) {
+        const subformularioHTML = `
+          <div id="form-dia-container-${i}" style="margin-bottom: 15px;">
+            <form id="form-dia-${i}" style="display: block;">
+              <h4>Día ${i + 1}</h4>
+              <label for="nombre-dia-${i}">Nombre del día:</label>
+              <input type="text" id="nombre-dia-${i}" name="nombreDia" placeholder="Ejemplo: Día ${i + 1}" required />
+              
+              <label for="cantidad-ejercicios-${i}">Cantidad de ejercicios:</label>
+              <input type="number" id="cantidad-ejercicios-${i}" name="cantidadEjercicios" min="1" placeholder="Ejemplo: 5" required />
+              
+              <h5>Ejercicios</h5>
+              <div id="ejercicios-container-${i}"></div> <!-- Contenedor para los ejercicios -->
+
+              <button type="button" class="add-ejercicio" data-dia-index="${i}">Agregar Ejercicio</button>
+            </form>
+          </div>
+        `;
+
+        // Agregar el subformulario al contenedor de subformularios
+        subformulariosContenedor.innerHTML += subformularioHTML;
+    }
+
+    // Asignar evento al formulario principal
+    const formPrincipal = document.getElementById("form-principal-dias");
+    formPrincipal.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevenir el envío por defecto
+
+        // Recoger datos de cada día
+        const dias = [];
+        for (let i = 0; i < cantidadDeDias; i++) {
+            const nombreDia = document.getElementById(`nombre-dia-${i}`).value;
+            const cantidadEjercicios = parseInt(document.getElementById(`cantidad-ejercicios-${i}`).value, 10);
+
+            // Validar datos
+            if (!nombreDia || isNaN(cantidadEjercicios) || cantidadEjercicios <= 0) {
+                alert(`Datos inválidos para el día ${i + 1}. Por favor, corrige los errores.`);
+                return; // Salir si hay errores
+            }
+
+            // Recoger ejercicios
+            const ejercicios = [];
+            const ejerciciosContainer = document.getElementById(`ejercicios-container-${i}`);
+            const ejerciciosInputs = ejerciciosContainer.querySelectorAll(".ejercicio-row");
+
+            ejerciciosInputs.forEach((row, index) => {
+                const nombreEjercicio = row.querySelector(".nombre-ejercicio").value;
+                const seriesEjercicio = row.querySelector(".series-ejercicio").value;
+
+                // Validar datos del ejercicio
+                if (!nombreEjercicio || isNaN(seriesEjercicio) || seriesEjercicio <= 0) {
+                    alert(`Datos inválidos para el ejercicio ${index + 1} en el día ${i + 1}.`);
+                    return;
+                }
+
+                ejercicios.push({
+                    Nombre: nombreEjercicio,
+                    Series: parseInt(seriesEjercicio, 10),
+                });
+            });
+
+            // Agregar día con ejercicios al array
+            dias.push({
+                Nombre: nombreDia,
+                CantidadDeEjercicios: cantidadEjercicios,
+                Ejercicios: ejercicios,
+            });
+        }
+
+        rutina.Dias.push(dias);
+        // Mostrar los datos de los días en la consola
+        console.log("Rutina", rutina);
+
+        // Aquí podrías continuar con el flujo, como guardar la rutina en la base de datos.
+    });
+
+    // Delegación de eventos para "Agregar Ejercicio"
+    subformulariosContenedor.addEventListener("click", function (event) {
+        if (event.target.classList.contains("add-ejercicio")) {
+            const diaIndex = event.target.dataset.diaIndex;
+            AgregarEjercicio(diaIndex);
+            event.preventDefault()
+        }
+    });
+}
+
+function AgregarEjercicio(diaIndex) {
+    const ejerciciosContainer = document.getElementById(`ejercicios-container-${diaIndex}`);
+    const ejercicioHTML = `
+      <div class="ejercicio-row" style="margin-bottom: 10px;">
+        <label for="nombre-ejercicio">Nombre del ejercicio:</label>
+        <input type="text" class="nombre-ejercicio" placeholder="Ejemplo: Banco Plano" required />
+
+        <label for="series-ejercicio">Series:</label>
+        <input type="number" class="series-ejercicio" min="1" placeholder="Ejemplo: 4" required />
+      </div>
+    `;
+
+    ejerciciosContainer.innerHTML += ejercicioHTML;
+}
+
+
+
+function CrearFormularioRutina() {
+    const contenedor = document.getElementById("contenedor-formulario");
+
+    const formularioHTML = `
+      <form id="form-rutina" style="display: block;">
+        <label for="nombre-rutina">Nombre del rutina:</label>
+        <input type="text" id="nombre-rutina" name="nombrerutina" placeholder="" required />
+        
+        <label for="cantidad-dias">Cantidad de dias:</label>
+        <input type="number" id="cantidad-dias" name="cantidaddias" min="1" placeholder="Ejemplo: 3" required />
+        
+        <button type="submit">Confirmar</button>
+      </form>
+    `;
+
+    contenedor.innerHTML = formularioHTML;
+}
+
+
+
+
+
+
+

@@ -1,0 +1,114 @@
+async function CrearRutina() {
+    const formRutina = document.querySelector('#form-rutina');
+    formRutina.style.display = 'block';
+
+    const datos = await new Promise((resolve) => {
+        formRutina.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const nombreDeLaRutina = document.getElementById('nombre-rutina').value;
+            const diasDeLaRutina = parseInt(document.getElementById('cantidad-dias').value);
+
+            resolve({ nombreDeLaRutina, diasDeLaRutina });
+
+            formRutina.style.display = 'none';
+
+        }, { once: true }); 
+    });
+
+    const { nombreDeLaRutina, diasDeLaRutina } = datos;
+    
+    try {
+        const rutinaRef = await addDoc(collection(db, `/users/${user}/Rutinas`), {
+            Nombre: nombreDeLaRutina,
+            Dias: diasDeLaRutina
+        });
+
+        for (let i = 0; i < diasDeLaRutina; i++) {
+            const formDias = CrearFormularioDias(i);
+            contenedorFormulario.appendChild(formDias)
+            const nombreDelDia = document.getElementById('nombre-dia').value;
+
+            //const nombreDelDia = prompt(`Ingrese el nombre del día ${i + 1}:`);
+            const diaRef = await addDoc(collection(rutinaRef, "Dias"), {
+                Nombre: nombreDelDia,
+                Indice: i
+            });
+
+            let cortar = "si";
+            let index = 0;
+
+            formDias.addEventListener('submit', async (event)=> {
+                event.preventDefault();
+
+                while (cortar === "si") {
+                    const formEjercicio = CargarEjercicios();
+                    formDias.appendChild(formEjercicio);
+                    const nombreDelEjercicio = document.getElementById('nombre-ejercicio').value;
+                    const series = document.getElementById('cantidad-series').value;
+                    cortar = document.getElementById('siguiente').value;
+    
+                    await addDoc(collection(diaRef, "Ejercicios"), {
+                        Nombre: nombreDelEjercicio,
+                        Series: series
+                    });
+    
+                    index++;
+                }
+            });
+            
+            
+            /*let cortar = "si";
+            let index = 0;
+            while (cortar === "si") {
+                const nombreDelEjercicio = prompt(`Ingrese el nombre del ejercicio ${index + 1}:`);
+                const cantidadDeSeries = prompt("Ingrese la cantidad de series:");
+                const series = new Array(Number(cantidadDeSeries)).fill(0);
+
+                await addDoc(collection(diaRef, "Ejercicios"), {
+                    Nombre: nombreDelEjercicio,
+                    Series: series
+                });
+
+                cortar = prompt("¿Quiere cargar otro ejercicio? 'si' o 'no':");
+                index++;
+            }*/
+        }
+    } catch (error) {
+        console.error("No se pudo crear la rutina:", error);
+    }
+}
+
+function CrearFormularioDias(i){
+    const contenedor = document.createElement('div'); // Crear un contenedor
+    contenedor.innerHTML = `
+        <form id="form-dias">
+            <label for="nombre-dia">Nombre del día:</label>
+            <input type="text" id="nombre-dia" name="nombredia" placeholder="Aquí va el nombre del día" required />
+
+            <button type="submit" >Cargar Ejercicios</button>
+        </form>
+    `;
+    return contenedor.firstElementChild; // Devuelve el formulario dentro del contenedor
+}
+
+function CargarEjercicios(i){
+    const contenedor = document.createElement('div'); // Crear un contenedor
+    contenedor.innerHTML = `
+        <form id="form-ejercicios">
+            <label for="nombre-ejercicio">Nombre del ejercicio:</label>
+            <input type="text" id="nombre-ejercicio" name="nombreejercicio" placeholder="Aquí va el nombre del ejercicio" required />
+
+            <label for="cantidad-series">Cantidad de series:</label>
+            <input type="number" id="cantidad-series" name="cantidadseries" min="1" placeholder="Ejemplo: 3" required />       
+
+            <label for="siguiente">Quieres cargar otro?</label>
+            <input type="text" id="siguiente" name="siguiente" min="1" placeholder="Si o No" required /> 
+            
+            <button type="submit" >Confirmar</button>
+        </form>
+    `;
+
+
+    return contenedor.firstElementChild; // Devuelve el formulario dentro del contenedor
+}

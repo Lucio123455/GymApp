@@ -1,0 +1,494 @@
+/* Asegúrate de que el contenedor principal ocupe toda la pantalla */
+
+#login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Más alto que el overlay */
+    width: 80%;
+    max-width: 500px;
+}
+
+#login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+    z-index: 999; /* Asegura que esté por encima de otros elementos */
+}
+
+body {
+    padding-top: 60px;
+    overflow: hidden;
+}
+
+#toggle-button {
+    padding: 10px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+#toggle-button:hover {
+    background-color: #45a049;
+}
+
+#contenedor-comentarios {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Más alto que el overlay */
+    width: 80%;
+    max-width: 500px;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+    z-index: 999; /* Asegura que esté por encima de otros elementos */
+}
+
+#registro { 
+    display: flex; /* Habilita Flexbox */
+    flex-direction: column; /* Apila los botones verticalmente */
+    align-items: center; /* Centra los botones horizontalmente */
+    justify-content: center; /* Centra los botones verticalmente */
+    height: 80vh; /* Ocupa toda la altura de la pantalla */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    background-color: #ffffff; /* Fondo claro para la sección */
+    box-sizing: border-box; /* Incluye padding en las dimensiones */
+    padding: 20px; /* Espacio interno opcional */
+}
+
+.registro-card {
+    background-color: #000000; /* Fondo negro */
+    color: #ffffff; /* Texto blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    width: 80%; /* Botones ocupan el 80% del ancho del contenedor */
+    text-align: center; /* Centrar texto */
+    padding: 15px; /* Espaciado interno */
+    margin: 10px 0; /* Espaciado entre botones */
+    font-size: 1.2rem; /* Tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+    cursor: pointer; /* Indica que es clickeable */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación */
+    box-sizing: border-box; /* Para asegurar que el padding y el borde no afecten el tamaño total */
+}
+
+.registro-card h1 {
+    color: white;
+}
+
+#menu {
+    display: flex; /* Habilita Flexbox */
+    flex-direction: column; /* Apila los botones verticalmente */
+    align-items: center; /* Centra los botones horizontalmente */
+    justify-content: center; /* Centra los botones verticalmente */
+    height: 80vh; /* Ocupa toda la altura de la pantalla */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    background-color: #ffffff; /* Fondo claro para la sección */
+    box-sizing: border-box; /* Incluye padding en las dimensiones */
+    padding: 20px; /* Espacio interno opcional */
+}
+
+#home {
+    display: flex; /* Habilita Flexbox */
+    flex-direction: column; /* Apila los botones verticalmente */
+    align-items: center; /* Centra los botones horizontalmente */
+    justify-content: center; /* Centra los botones verticalmente */
+    height: 80vh; /* Ocupa toda la altura de la pantalla */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    background-color: #ffffff; /* Fondo claro para la sección */
+    box-sizing: border-box; /* Incluye padding en las dimensiones */
+    padding: 20px; /* Espacio interno opcional */
+}
+
+/* Estilos de los botones */
+.secciones-home {
+    background-color: #000000; /* Fondo negro */
+    color: #ffffff; /* Texto blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    width: 80%; /* Botones ocupan el 80% del ancho del contenedor */
+    height: 30%;
+    text-align: center; /* Centrar texto */
+    padding: 15px; /* Espaciado interno */
+    margin: 10px 0; /* Espaciado entre botones */
+    font-size: 2.2rem; /* Tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+    cursor: pointer; /* Indica que es clickeable */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación */
+}
+
+/* Efectos al pasar el mouse */
+.secciones-home:hover {
+    transform: scale(1.05); /* Agrandar un poco el botón */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+#lista-de-rutinas, #lista-dias {
+    display: flex; /* Habilita Flexbox */
+    flex-direction: column; /* Apila los botones verticalmente */
+    align-items: center; /* Centra los botones horizontalmente */
+    justify-content: center; /* Centra los botones verticalmente */
+    height: 80vh; /* Ocupa toda la altura de la pantalla */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    background-color: #ffffff; /* Fondo claro para la sección */
+    box-sizing: border-box; /* Incluye padding en las dimensiones */
+    padding: 20px; /* Espacio interno opcional */
+}
+
+#lista-ejercicios {
+    display: block; /* Habilita Flexbox */
+    flex-direction: column; /* Apila los botones verticalmente */
+    align-items: center; /* Centra los botones horizontalmente */
+    justify-content: center; /* Centra los botones verticalmente */
+    height: auto; /* Ocupa toda la altura de la pantalla */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    background-color: #ffffff; /* Fondo claro para la sección */
+    box-sizing: border-box; /* Incluye padding en las dimensiones */
+    padding: 20px; /* Espacio interno opcional */
+}
+
+/* Estilos para las cards */
+.rutina-card, .dia-card, .ejercicio-card {
+    background-color: #000000; /* Fondo negro */
+    color: #ffffff; /* Texto blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    width: 80%; /* Botones ocupan el 80% del ancho del contenedor */
+    text-align: center; /* Centrar texto */
+    padding: 15px; /* Espaciado interno */
+    margin: 10px 0; /* Espaciado entre botones */
+    font-size: 1.2rem; /* Tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+    cursor: pointer; /* Indica que es clickeable */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación */
+    box-sizing: border-box; /* Para asegurar que el padding y el borde no afecten el tamaño total */
+}
+
+.contenedor-series {
+    display: flex; /* O usar otro tipo de layout que se adapte a tus necesidades */
+    flex-direction: column; /* Para apilar las series verticalmente */
+    gap: 10px; /* Espaciado entre las series */
+    width: 100%; /* Asegura que el contenedor ocupe el 100% del ancho disponible */
+    padding: 10px 0; /* Espaciado interno */
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+}
+.rutina-card h1 {
+    color: white;
+}
+
+.dia-card h2{
+    color: white;
+}
+
+.ejercicio-card h2 {
+    color: white;
+}
+/* Efecto hover */
+.rutina-card:hover, .dia-card:hover, .ejercicio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.volver-atras {
+    position: fixed;
+    top: 70px;
+    left: 20px;
+    width: 100px;
+    z-index: 1000; /* Asegura que el navbar quede encima de otros elementos */
+}
+
+/* Estilo de los botones */
+button {
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #8e98a3;
+}
+
+/* Estilos adicionales */
+h1, h2 {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+
+
+/*FORMS PARA CREAR RUTINA*/
+
+/* Modal centrado */
+/* Estilo para el modal */
+.modal-formulario {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Más alto que el overlay */
+    width: 80%;
+    max-width: 500px;
+}
+
+/* Estilo para el overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    z-index: 1000; /* Debajo del modal */
+}
+
+
+/* Estilo de los modales */
+.modal {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-out;
+    position: relative;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Estilo del encabezado del modal */
+.modal-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+/* Estilo del cuerpo del modal */
+.modal-body {
+    margin-bottom: 15px;
+}
+
+/* Estilo de las etiquetas y entradas */
+.modal-body label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.modal-body input[type="text"],
+.modal-body input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Estilo del pie del modal */
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Botones */
+.modal-footer button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+#modal-cancelar {
+    background: #e74c3c;
+    color: white;
+}
+
+#modal-cancelar:hover {
+    background: #c0392b;
+}
+
+#modal-confirmar,
+#confirmar-rutina,
+#mostrar-dia-siguiente {
+    background: #3498db;
+    color: white;
+}
+
+#modal-confirmar:hover,
+#confirmar-rutina:hover,
+#mostrar-dia-siguiente:hover {
+    background: #2980b9;
+}
+
+/* Botón de agregar ejercicio */
+#agregar-ejercicio {
+    background: #2ecc71;
+    color: white;
+}
+
+#agregar-ejercicio:hover {
+    background: #27ae60;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .modal {
+        width: 95%;
+    }
+}
+
+.nav-bar {
+    display: flex; /* Usamos Flexbox para distribuir los elementos */
+    justify-content: space-between; /* Centra todos los elementos de forma equidistante */
+    align-items: center; /* Centra verticalmente los elementos */
+    background-color: #333; /* Fondo oscuro para el navbar */
+    color: #fff; /* Texto blanco */
+    position: fixed; /* Fija el navbar en la parte superior */
+    z-index: 1000; /* Asegura que el navbar quede encima de otros elementos */
+    top: 0;
+    left: 0;
+    width: 100%; /* Abarca todo el ancho */
+   
+}
+
+/* Contenedor para el texto de bienvenida */
+.bienvenida-container {
+    flex-grow: 1; /* Hace que el contenedor ocupe todo el espacio disponible */
+    display: flex;
+    justify-content: center; /* Centra el texto horizontalmente */
+}
+
+/* Estilos para las imágenes */
+.nav-bar img {
+    height: 70px; /* Controla el tamaño de las imágenes */
+    width: auto; /* Mantiene la relación de aspecto */
+}
+
+/* Estilo para el texto de bienvenida */
+#bienvenida {
+    font-size: 1.2rem; /* Tamaño de fuente más grande para el mensaje de bienvenida */
+    font-weight: bold; /* Negrita para hacer el texto más destacado */
+    position: relative;
+    left: -0%;
+}
+
+.serie-item {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/*LOADING*/
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    display: none; /* Inicialmente oculto */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Asegura que se superponga sobre el contenido */
+  }
+  
+  /* Estilo para el símbolo de carga (spinner) */
+  .spinner {
+    border: 4px solid #f3f3f3; /* Color gris claro */
+    border-top: 4px solid #3498db; /* Color azul */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* Animación de rotación */
+  }
+
+  /* Clase para desactivar el scroll */
+
+/* Estilos generales para el footer */
+.footer {
+    background-color: #333; /* Fondo oscuro */
+    color: #fff; /* Texto blanco */
+    padding: 20px 0; /* Espaciado superior e inferior */
+    text-align: center; /* Centra el texto */
+    font-size: 1rem; /* Tamaño de texto */
+    position: relative; /* Para manejar el posicionamiento de elementos */
+    bottom: 0; /* Asegura que quede al final de la página */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+}
+
+/* Contenedor de contenido del footer */
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Estilos para los enlaces */
+.footer-links {
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0;
+}
+
+.footer-links li {
+    display: inline-block; /* Hace que los enlaces estén en línea */
+    margin: 0 15px; /* Espacio entre los enlaces */
+}
+
+.footer-links a {
+    color: #fff; /* Color blanco */
+    text-decoration: none; /* Elimina subrayado */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.footer-links a:hover {
+    color: #f39c12; /* Color amarillo al pasar el mouse */
+    text-decoration: underline; /* Subraya el enlace al pasar el mouse */
+}

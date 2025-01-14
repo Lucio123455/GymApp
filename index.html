@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gym anotaciones</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <section class="nav-bar">
+        <img src="./img/user.png" alt="user">
+        <p id="bienvenida"></p>
+        <button id="toggle-button"><img id="play" src="./img/play.svg" alt=""><img id="pause" src="./img/pause.svg" style="display: none;" alt=""></button>
+        <button id="iniciar-sesion">Iniciar Sesion</button>
+        <img src="./img/Logo.jpg" alt="logo">
+    </section>
+    <audio id="audio-player" src="./canciones/Plan B - Por Que Te Demoras  [Official Audio] - Plan B (mp3cut.net).mp3"></audio>
+
+    <section id="home">
+        <button id="mostrar-rutinas-button" class="secciones-home">Mis Rutinas</button>
+        <button id="mostrar-registro-button" class="secciones-home">Registro Personal</button>
+        <button id="enviar-comentarios" class="secciones-home">Enviar comentarios</button>
+        <button id="" class="secciones-home">Chat</button>
+        <button id="" class="secciones-home">Configuracion</button>
+    </section>
+
+    <div id="contenedor-login" style="display: none;">
+        <div id="login-overlay"></div>
+        <div id="login">
+            <form id="form-login">
+                <label for="usuario">Escribe tu nombre de usuario</label>
+                <textarea id="usuario" name="usuario" required></textarea>
+                <button type="submit" id="enviar-usuario">Enviar</button>
+            </form>
+        </div>
+    </div>
+    
+
+    <div id="overlay" style="display: none;"></div>
+
+    <div id="contenedor-comentarios" style="display: none;"></div>
+
+
+    <div id="mis-rutinas" style="display: none;">
+        <div id="lista-de-rutinas">
+
+
+        </div>
+        <div id="lista-dias">
+
+        </div>
+        <div id="lista-ejercicios" style="display: none;">
+
+        </div>
+    </div>
+
+    <div id="registro" style="display: none;">
+        <div id="menu">
+
+        </div>
+        <div id="registro-ejercicios" style="display: none;">
+
+        </div>
+    </div>
+
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div> <!-- El símbolo de carga -->
+    </div>
+
+    <div id="contenedor-formulario">
+
+    </div>
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Mi Empresa. Todos los derechos reservados.</p>
+            <ul class="footer-links">
+                <li><a href="#">Política de privacidad</a></li>
+                <li><a href="#">Términos y condiciones</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="module" src="/main.js"></script>
+    <script type="module" src="./components/crearRutina.js"></script>
+</body>
+
+</html>
