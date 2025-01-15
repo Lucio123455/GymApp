@@ -39,7 +39,7 @@ function CrearBotonRegistrosEjercicios(contenedorRegistro) {
 }
 
 function MostrarRegistroEjercicios(contenedorRegistro){
-    window.location.href = 'http://127.0.0.1:5500/pages/registros.html'
+    window.location.href = './pages/registros.html'
 }
 
 function CrearbotonVolverAtras(seccionDias,seccionRutinas, overflow){
