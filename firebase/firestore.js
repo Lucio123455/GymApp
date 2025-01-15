@@ -28,7 +28,7 @@ export async function getDocuments(collection) {
     }
 }
 
-export async function actualizarSerie(rutaEjercicio, idSerie, indice, pesoActual, repeticionesActuales, user) {
+export async function actualizarSerie(rutaEjercicio, idSerie, indice, user) {
     try {
 
         // Crear el formulario dinámico
@@ -89,7 +89,8 @@ export async function actualizarSerie(rutaEjercicio, idSerie, indice, pesoActual
                 const repeticionesElemento = serieElemento.querySelector('.repeticiones');
                 console.log(indice);
                 if (indice === 0) {
-                    enviarRegistroDeLaPrimeraSerie(pesoActual, repeticionesActuales,rutaEjercicio, user)
+                    console.log(nuevoPeso)
+                    enviarRegistroDeLaPrimeraSerie(nuevoPeso, nuevasRepeticiones,rutaEjercicio, user)
                 }
                 pesoElemento.textContent = `Peso: ${nuevoPeso}`;
                 repeticionesElemento.textContent = `Repeticiones: ${nuevasRepeticiones}`;
@@ -227,6 +228,37 @@ export async function TraerComentarios() {
         console.error("Error al obtener los comentarios: ", error);
         throw new Error("Error al traer los comentarios");
     }
+}
+
+export async function TraerEjericios(user) {
+    const ejerciciosRef = await getDocs(collection(db, `users/${user}/Ejercicios`));
+
+    const ejercicios = [];
+
+    ejerciciosRef.forEach((doc) => {
+
+        ejercicios.push({
+            id: doc.id,
+            ...doc.data()
+        });
+    });
+
+    return ejercicios
+}
+
+export async function TraerRegistros(ejercicio, user) {
+    const registrosRef = await getDocs(collection(db,`users/${user}/Ejercicios/${ejercicio}/Registros`));
+
+    const registros = [];
+
+    registrosRef.forEach((doc) => {
+        registros.push({
+            id: doc.id,
+            ...doc.data()
+        });
+    });
+
+    return registros
 }
 
 export default db;

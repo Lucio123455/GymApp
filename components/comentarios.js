@@ -10,6 +10,7 @@ export function Comentarios() {
             <label for="comentario">Escribe tu comentario:</label>
             <textarea id="comentario" name="comentario" required></textarea>
             <button type="submit" id="enviar-formulario">Enviar</button>
+            <button type="click" id="cancelar-comentarios">Cancelar</button>
             <div id="comentarios"> </div>
         </form>
     `;
@@ -34,6 +35,13 @@ export function Comentarios() {
         contenedorComentarios.style.display = 'none';
         overlay.style.display = 'none';
     });
+
+    const cancelar = document.getElementById('cancelar-comentarios');
+    cancelar.addEventListener('click', () => {
+        contenedorComentarios.innerHTML = '';
+        contenedorComentarios.style.display = 'none';
+        overlay.style.display = 'none';
+    })
 }
 
 async function mostrarComentarios() {

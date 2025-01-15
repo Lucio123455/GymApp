@@ -67,7 +67,6 @@ async function mostrarDiasDeLaRutina(rutina) {
 
         seccionDias.appendChild(botonVolverAtras(seccionDias,seccionRutinas));
 
-        dias.reverse();
         dias.forEach(dia => {
             const diaCard = crearDiaCard(dia, rutina.id);
             seccionDias.appendChild(diaCard);
@@ -177,10 +176,7 @@ function ConstruirContenedorSeries(series, rutaEjercicio) {
         const botonActualizar = document.createElement('button');
         botonActualizar.textContent = 'Actualizar';
         botonActualizar.addEventListener('click', () => {
-
-            const pesoActual = parseFloat(peso.textContent) || 0;
-            const repeticionesActuales = parseInt(repeticiones.textContent) || 0;
-            actualizarSerie(rutaEjercicio, serie.id, index, pesoActual, repeticionesActuales, userActual);
+            actualizarSerie(rutaEjercicio, serie.id, index, userActual);
         });
 
         console.log(contador)
