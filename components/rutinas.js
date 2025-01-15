@@ -138,9 +138,10 @@ async function mostrarEjerciciosPorDia(dia, IdRutina) {
 function crearEjercicioCard(ejercicio,ruta,series) {
     const ejercicioCard = document.createElement('div');
     ejercicioCard.classList.add('ejercicio-card');
-    
+    const pesoRepes = document.createElement('h3');
+    pesoRepes.textContent = 'peso-repes';
     ejercicioCard.appendChild(mostrarNombreDelEjercicio(ejercicio));
-
+    ejercicioCard.appendChild(pesoRepes);
     ejercicioCard.appendChild(ConstruirContenedorSeries(series,ruta)); 
     
     return ejercicioCard;
@@ -163,14 +164,14 @@ function ConstruirContenedorSeries(series, rutaEjercicio) {
         contenedorSerie.id = `serie-${serie.id}`; // Asignar un ID único
 
         const indice = document.createElement('p');
-        indice.textContent = `Serie ${contador}`;
+        indice.textContent = `${contador}`;
 
         const peso = document.createElement('p');
-        peso.textContent = `${serie.Peso || 'Has tu primer registro!'}`;
+        peso.textContent = `${serie.Peso || '-'}`;
         peso.classList.add('peso'); // Clase para localizar este elemento
 
         const repeticiones = document.createElement('p');
-        repeticiones.textContent = `${serie.Repeticiones || 'Has tu primer registro!'}`;
+        repeticiones.textContent = `${serie.Repeticiones || '-'}`;
         repeticiones.classList.add('repeticiones'); // Clase para localizar este elemento
 
         const botonActualizar = document.createElement('button');
