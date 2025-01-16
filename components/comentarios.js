@@ -16,7 +16,7 @@ export function Comentarios() {
     `;
     contenedorComentarios.style.display = 'block';
     overlay.style.display = 'block';
-
+    document.body.style.overflow = 'auto'
     // Mostrar los comentarios
     mostrarComentarios();
 
@@ -34,6 +34,7 @@ export function Comentarios() {
         contenedorComentarios.innerHTML = '';
         contenedorComentarios.style.display = 'none';
         overlay.style.display = 'none';
+        document.body.style.overflow = 'hidden'
     });
 
     const cancelar = document.getElementById('cancelar-comentarios');
@@ -41,6 +42,8 @@ export function Comentarios() {
         contenedorComentarios.innerHTML = '';
         contenedorComentarios.style.display = 'none';
         overlay.style.display = 'none';
+        document.body.style.overflow = 'hidden'
+
     })
 }
 
