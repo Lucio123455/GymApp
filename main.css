@@ -462,6 +462,71 @@ h2 {
     transition: background 0.2s ease-in-out;
 }
 
+#form-comentarios {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    overflow: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #833f3f;
+    border-radius: 5px;
+    resize: none;
+}
+
+button {
+    padding: 10px 15px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#enviar-formulario {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#cancelar-comentarios {
+    background-color: #f44336;
+    color: white;
+}
+
+#comentarios {
+    margin-top: 20px;
+    max-height: 150px; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.comentario {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cancelar-comentarios {
+    position: relative;
+    top: 200px;
+    left: 200px;
+}
+
 #modal-cancelar {
     background: #e74c3c;
     color: white;
